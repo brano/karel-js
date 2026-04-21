@@ -1,3 +1,6 @@
+app = 'karel'
+primary_region = 'ams'
+
 [http_service]
   internal_port = 80
   force_https = true
@@ -5,3 +8,9 @@
   auto_start_machines = true
   min_machines_running = 0
   processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 256
