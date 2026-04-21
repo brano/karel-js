@@ -1,9 +1,325 @@
-<html>
-    <head>
-        <title>🤖 Robot Karel JS</title>
-    </head>
-    <body>
-        <h1>🤖 Robot Karel JS - výučba programovania pre deti</h1>
-        <button><a href="karel.html">Štart 🪄</a></button>
-    </body>
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="🤖 Robot Karol JS – IDE na výučbu programovania pre deti. Inšpirované MS-DOS verziou.">
+<meta name="keywords" content="Karol, Karel, robot, HTML, CSS, JavaScript, programovanie, výučba, deti">
+<meta name="author" content="Brano Lukac & Claude Sonnet (c) 2026">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🤖 Robot Karol JS – Výuka programovania pre deti</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #0f1923;
+  --panel:    #1a2535;
+  --panel2:   #141e2e;
+  --border:   #253550;
+  --acc1:     #ff4d6d;
+  --acc2:     #4cc9f0;
+  --acc3:     #f8961e;
+  --acc4:     #7b2d8b;
+  --green:    #4ecca3;
+  --text:     #dde8f5;
+  --subtext:  #6a8aaa;
+  --karel:    #ffd700;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  min-height: 100vh;
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Subtle grid + glow (matches IDE atmosphere) */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, #ff4d6d18, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 100% 50%, #4cc9f012, transparent 45%),
+    radial-gradient(ellipse 50% 30% at 0% 80%, #7b2d8b15, transparent 50%),
+    linear-gradient(180deg, #0a121c 0%, var(--bg) 35%, var(--bg) 100%);
+}
+.bg-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px 48px;
+}
+
+/* Top bar */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0 32px;
+  border-bottom: 2px solid var(--acc1);
+  background: linear-gradient(135deg, #1a0933, #0d2040, transparent);
+  margin: 0 -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+.brand h1 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(9px, 2.2vw, 11px);
+  color: var(--acc1);
+  letter-spacing: 1px;
+  line-height: 1.4;
+}
+.brand span {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--subtext);
+}
+.header-cta {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 12px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 2px solid var(--border);
+  background: var(--panel2);
+  color: var(--acc2);
+  text-decoration: none;
+  transition: 0.15s;
+  white-space: nowrap;
+}
+.header-cta:hover {
+  border-color: var(--acc2);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+/* Hero */
+.hero {
+  padding: clamp(40px, 8vw, 72px) 0 clamp(48px, 10vw, 80px);
+  text-align: center;
+}
+.hero-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--karel);
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 14px;
+  margin-bottom: 20px;
+  letter-spacing: 0.03em;
+}
+.hero h2 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(14px, 3.5vw, 22px);
+  color: var(--text);
+  line-height: 1.55;
+  max-width: 32em;
+  margin: 0 auto 20px;
+  text-shadow: 0 0 40px #4cc9f033;
+}
+.hero-lead {
+  font-size: clamp(16px, 2.2vw, 20px);
+  font-weight: 700;
+  color: var(--subtext);
+  max-width: 28em;
+  margin: 0 auto 32px;
+}
+.cta-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: clamp(15px, 2.5vw, 18px);
+  padding: 18px 36px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--green), #3db892);
+  color: #0f1923;
+  text-decoration: none;
+  box-shadow:
+    0 4px 24px #4ecca355,
+    0 0 0 1px #ffffff22 inset;
+  transition: transform 0.15s, filter 0.15s, box-shadow 0.15s;
+}
+.cta-primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow:
+    0 8px 32px #4ecca377,
+    0 0 0 1px #ffffff33 inset;
+}
+.cta-primary:focus-visible {
+  outline: 2px solid var(--acc2);
+  outline-offset: 4px;
+}
+.hero-note {
+  margin-top: 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--subtext);
+}
+.hero-note kbd {
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--acc2);
+}
+
+/* USPs */
+.usps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.usp-card {
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 22px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.usp-card:hover {
+  border-color: #2a4a6a;
+  box-shadow: 0 0 28px #ff4d6d14;
+}
+.usp-icon {
+  font-size: 28px;
+  line-height: 1;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 8px currentColor);
+}
+.usp-card:nth-child(1) .usp-icon { color: var(--acc2); }
+.usp-card:nth-child(2) .usp-icon { color: var(--acc3); }
+.usp-card:nth-child(3) .usp-icon { color: var(--green); }
+.usp-card:nth-child(4) .usp-icon { color: var(--acc4); }
+.usp-card h3 {
+  font-size: 17px;
+  font-weight: 900;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.usp-card p {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--subtext);
+  line-height: 1.55;
+}
+
+/* Bottom CTA strip */
+.cta-strip {
+  text-align: center;
+  padding: 40px 28px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--panel), #141e2e);
+  border: 2px solid var(--border);
+  box-shadow: 0 0 40px #4cc9f018;
+}
+.cta-strip p {
+  font-size: clamp(15px, 2vw, 18px);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 20px;
+  max-width: 36em;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-strip .cta-primary {
+  padding: 16px 40px;
+}
+
+footer {
+  text-align: center;
+  padding-top: 40px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--subtext);
+}
+</style>
+</head>
+<body>
+<div class="bg-layer" aria-hidden="true"></div>
+
+<div class="wrap">
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <h1>🤖 Robot Karol JS</h1>
+      <span>Výučba programovania pre deti</span>
+    </a>
+    <a class="header-cta" href="karel.html">Otvoriť IDE →</a>
+  </header>
+
+  <section class="hero" aria-labelledby="hero-title">
+    <p class="hero-badge">Beží v prehliadači · Žiadna inštalácia</p>
+    <h2 id="hero-title">Nauč sa programovať s robotom Karolom</h2>
+    <p class="hero-lead">
+      Zadávaj príkazy po slovensky, sleduj robotíka Karola v akcii a stavaj svety z tehál, stien a značiek — ako v klasickej výučbe, len modernejšie.
+    </p>
+    <a class="cta-primary" href="karel.html">Spustiť Robota Karola ▶</a>
+    <p class="hero-note">V IDE: <kbd>Ctrl+Enter</kbd> spustí program</p>
+  </section>
+
+  <section class="usps" aria-label="Prečo Robot Karol">
+    <article class="usp-card">
+      <div class="usp-icon" aria-hidden="true">🧩</div>
+      <h3>Jednoduchý jazyk</h3>
+      <p>Príkazy, cykly a podmienky bez anglickej syntaktickej spletitosti — sústredenie sa na logiku, nie na syntax.</p>
+    </article>
+    <article class="usp-card">
+      <div class="usp-icon" aria-hidden="true">🗺</div>
+      <h3>Výsledok vidíš ihneď</h3>
+      <p>Canvasové pole (mriežka), krokové spúšťanie a jasný stav — deti vidia príčinu a následok každého príkazu.</p>
+    </article>
+    <article class="usp-card">
+      <div class="usp-icon" aria-hidden="true">✏</div>
+      <h3>Naklikaj si svoj svet</h3>
+      <p>Tehly, steny, značky a štartová pozícia Karela priamo v editore — ideálne na úlohy a experimenty.</p>
+    </article>
+    <article class="usp-card">
+      <div class="usp-icon" aria-hidden="true">📚</div>
+      <h3>Príklady v zásobe</h3>
+      <p>Hotové programy na rozbeh — od pozdravu po zložitejšie vzory; môžeš ich meniť a rozširovať.</p>
+    </article>
+  </section>
+
+  <section class="cta-strip" aria-labelledby="cta-bottom-title">
+    <p id="cta-bottom-title">Pripravený napísať svoj prvý program?</p>
+    <a class="cta-primary" href="karel.html">Otvoriť Robot Karel JS</a>
+  </section>
+
+  <footer>
+    Robot Karel JS — inšpirované klasickou výučbou programovania.
+  </footer>
+</div>
+</body>
 </html>
