@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Robot Karel – Učenie programovania</title>
+<title>🤖 Robot Karel JS – Výuka programovania pre deti</title>
+<author>Brano Lukac & Claude Sonnet (c) 2026</author>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -182,7 +183,6 @@ select.ex-select{
       <option value="stairs">4. Schodisko</option>
       <option value="zigzag">5. Cik-cak trasa</option>
       <option value="custom">6. Vlastný príkaz</option>
-      <option value="maze">7. Bludisko 🏰</option>
     </select>
   </div>
   <textarea id="editor" spellcheck="false" placeholder="# Sem napíš program pre Karela...
@@ -192,7 +192,7 @@ select.ex-select{
 krok
 vpravo
 krok
-polož
+poloz
 "></textarea>
 </div>
 
@@ -208,39 +208,39 @@ polož
 
   <div class="ref-sec">
     <h3>Tehly &amp; Značky</h3>
-    <div class="ref-item" data-ins="polož"><span class="kw">polož</span><span class="desc">Polož tehlu</span></div>
+    <div class="ref-item" data-ins="poloz"><span class="kw">poloz</span><span class="desc">Polož tehlu</span></div>
     <div class="ref-item" data-ins="zdvihni"><span class="kw">zdvihni</span><span class="desc">Zdvihni tehlu</span></div>
-    <div class="ref-item" data-ins="polož_značku"><span class="kw">polož_značku</span><span class="desc">Polož značku</span></div>
-    <div class="ref-item" data-ins="zdvihni_značku"><span class="kw">zdvihni_značku</span><span class="desc">Zdvihni značku</span></div>
+    <div class="ref-item" data-ins="poloz_znacku"><span class="kw">poloz_znacku</span><span class="desc">Polož značku</span></div>
+    <div class="ref-item" data-ins="zdvihni_znacku"><span class="kw">zdvihni_znacku</span><span class="desc">Zdvihni značku</span></div>
   </div>
 
   <div class="ref-sec">
     <h3>Opakovanie</h3>
-    <div class="ref-item" data-ins="opakuj 4 krát\n  začiatok\n    krok\n  koniec"><span class="kw">opakuj <em>N</em> krát</span><span class="desc">Zopakuj N-krát</span></div>
-    <div class="ref-item" data-ins="kým nie_je_stena rob\n  začiatok\n    krok\n  koniec"><span class="kw">kým <em>podmienka</em> rob</span><span class="desc">Opakuj, kým platí</span></div>
+    <div class="ref-item" data-ins="opakuj 4 krat\n  zaciatok\n    krok\n  koniec"><span class="kw">opakuj <em>N</em> krat</span><span class="desc">Zopakuj N-krát</span></div>
+    <div class="ref-item" data-ins="kym nie_je_stena rob\n  zaciatok\n    krok\n  koniec"><span class="kw">kym <em>podmienka</em> rob</span><span class="desc">Opakuj, kým platí</span></div>
   </div>
 
   <div class="ref-sec">
     <h3>Podmienky</h3>
-    <div class="ref-item" data-ins="ak je_tehla tak\n  začiatok\n    zdvihni\n  koniec"><span class="kw">ak <em>podmienka</em> tak</span><span class="desc">Ak platí, urob</span></div>
-    <div class="ref-item" data-ins="ak je_tehla tak\n  začiatok\n    zdvihni\n  koniec\ninak\n  začiatok\n    polož\n  koniec"><span class="kw">ak … tak … inak</span><span class="desc">Inak urob druhé</span></div>
+    <div class="ref-item" data-ins="ak je_tehla tak\n  zaciatok\n    zdvihni\n  koniec"><span class="kw">ak <em>podmienka</em> tak</span><span class="desc">Ak platí, urob</span></div>
+    <div class="ref-item" data-ins="ak je_tehla tak\n  zaciatok\n    zdvihni\n  koniec\ninak\n  zaciatok\n    poloz\n  koniec"><span class="kw">ak … tak … inak</span><span class="desc">Inak urob druhé</span></div>
   </div>
 
   <div class="ref-sec">
     <h3>Testy</h3>
     <div class="ref-item"><span class="cond">je_tehla</span><span class="desc">Stojím na tehle?</span></div>
     <div class="ref-item"><span class="cond">je_stena</span><span class="desc">Predo mnou stena?</span></div>
-    <div class="ref-item"><span class="cond">je_značka</span><span class="desc">Stojím na značke?</span></div>
-    <div class="ref-item"><span class="cond">je_voľno</span><span class="desc">Môžem ísť dopredu?</span></div>
+    <div class="ref-item"><span class="cond">je_znacka</span><span class="desc">Stojím na značke?</span></div>
+    <div class="ref-item"><span class="cond">je_volno</span><span class="desc">Môžem ísť dopredu?</span></div>
     <div class="ref-item"><span class="cond">nie_je_tehla</span></div>
     <div class="ref-item"><span class="cond">nie_je_stena</span></div>
-    <div class="ref-item"><span class="cond">nie_je_značka</span></div>
-    <div class="ref-item"><span class="cond">nie_je_voľno</span></div>
+    <div class="ref-item"><span class="cond">nie_je_znacka</span></div>
+    <div class="ref-item"><span class="cond">nie_je_volno</span></div>
   </div>
 
   <div class="ref-sec">
     <h3>Vlastný príkaz</h3>
-    <div class="ref-item" data-ins="príkaz moje_meno\n  začiatok\n    krok\n    vpravo\n  koniec"><span class="kw">príkaz <em>meno</em></span><span class="desc">Definuj nový príkaz</span></div>
+    <div class="ref-item" data-ins="prikaz moje_meno\n  zaciatok\n    krok\n    vpravo\n  koniec"><span class="kw">prikaz <em>meno</em></span><span class="desc">Definuj nový príkaz</span></div>
   </div>
 
 </div><!-- /ref-panel -->
@@ -414,10 +414,10 @@ function drawKarel(row,col,dir) {
 // TOKENIZER
 // ─────────────────────────────────────────────
 const KEYWORDS = new Set([
-  'príkaz','začiatok','koniec','opakuj','krát','kým','rob','ak','tak','inak',
-  'krok','vpravo','vlavo','polož','zdvihni','polož_značku','zdvihni_značku',
-  'je_tehla','je_stena','je_značka','je_voľno',
-  'nie_je_tehla','nie_je_stena','nie_je_značka','nie_je_voľno',
+  'prikaz','zaciatok','koniec','opakuj','krat','kym','rob','ak','tak','inak',
+  'krok','vpravo','vlavo','poloz','zdvihni','poloz_znacku','zdvihni_znacku',
+  'je_tehla','je_stena','je_znacka','je_volno',
+  'nie_je_tehla','nie_je_stena','nie_je_znacka','nie_je_volno',
 ]);
 
 function tokenize(src) {
@@ -454,8 +454,8 @@ function tokenize(src) {
 // ─────────────────────────────────────────────
 // PARSER
 // ─────────────────────────────────────────────
-const BUILTINS = new Set(['krok','vpravo','vlavo','polož','zdvihni','polož_značku','zdvihni_značku']);
-const CONDITIONS = new Set(['je_tehla','je_stena','je_značka','je_voľno','nie_je_tehla','nie_je_stena','nie_je_značka','nie_je_voľno']);
+const BUILTINS = new Set(['krok','vpravo','vlavo','poloz','zdvihni','poloz_znacku','zdvihni_znacku']);
+const CONDITIONS = new Set(['je_tehla','je_stena','je_znacka','je_volno','nie_je_tehla','nie_je_stena','nie_je_znacka','nie_je_volno']);
 
 function parse(src) {
   const toks = tokenize(src);
@@ -480,10 +480,10 @@ function parse(src) {
   }
   function parseStmt(){
     const t=peek();
-    if(t.val==='príkaz'){
+    if(t.val==='prikaz'){
       const ln=t.line; p++;
       const nt=consume();
-      consume('začiatok');
+      consume('zaciatok');
       const body=parseBlock();
       consume('koniec');
       return {type:'def',name:nt.val,body,line:ln};
@@ -492,22 +492,22 @@ function parse(src) {
       const ln=t.line; p++;
       const nt=consume();
       if(nt.type!=='num') throw new Error(`'opakuj' potrebuje číslo (riadok ${nt.line})`);
-      consume('krát'); consume('začiatok');
+      consume('krat'); consume('zaciatok');
       const body=parseBlock(); consume('koniec');
       return {type:'repeat',count:nt.val,body,line:ln};
     }
-    if(t.val==='kým'){
+    if(t.val==='kym'){
       const ln=t.line; p++;
-      const cond=parseCond(); consume('rob'); consume('začiatok');
+      const cond=parseCond(); consume('rob'); consume('zaciatok');
       const body=parseBlock(); consume('koniec');
       return {type:'while',cond,body,line:ln};
     }
     if(t.val==='ak'){
       const ln=t.line; p++;
-      const cond=parseCond(); consume('tak'); consume('začiatok');
+      const cond=parseCond(); consume('tak'); consume('zaciatok');
       const then=parseBlock(); consume('koniec');
       let els=null;
-      if(peek().val==='inak'){ p++; consume('začiatok'); els=parseBlock(); consume('koniec'); }
+      if(peek().val==='inak'){ p++; consume('zaciatok'); els=parseBlock(); consume('koniec'); }
       return {type:'if',cond,then,els,line:ln};
     }
     if(BUILTINS.has(t.val)){ p++; return {type:'cmd',name:t.val,line:t.line}; }
@@ -530,12 +530,12 @@ function evalCond(name) {
   switch(name){
     case 'je_tehla':     return world.cells[row][col].bricks>0;
     case 'nie_je_tehla': return world.cells[row][col].bricks===0;
-    case 'je_značka':    return world.cells[row][col].marker;
-    case 'nie_je_značka':return !world.cells[row][col].marker;
+    case 'je_znacka':    return world.cells[row][col].marker;
+    case 'nie_je_znacka':return !world.cells[row][col].marker;
     case 'je_stena':     return checkWall(row,col,dir);
     case 'nie_je_stena': return !checkWall(row,col,dir);
-    case 'je_voľno':     return !checkWall(row,col,dir);
-    case 'nie_je_voľno': return checkWall(row,col,dir);
+    case 'je_volno':     return !checkWall(row,col,dir);
+    case 'nie_je_volno': return checkWall(row,col,dir);
   }
   return false;
 }
@@ -558,12 +558,12 @@ function runBuiltin(name) {
       k.row+=DR[k.dir]; k.col+=DC[k.dir]; break;
     case 'vpravo': k.dir=(k.dir+1)%4; break;
     case 'vlavo':  k.dir=(k.dir+3)%4; break;
-    case 'polož':  world.cells[k.row][k.col].bricks++; world.bricksHeld=Math.max(0,world.bricksHeld-1); break;
+    case 'poloz':  world.cells[k.row][k.col].bricks++; world.bricksHeld=Math.max(0,world.bricksHeld-1); break;
     case 'zdvihni':
       if(world.cells[k.row][k.col].bricks===0) throw new Error('Žiadna tehla na zdvihnutie! 🧱');
       world.cells[k.row][k.col].bricks--; world.bricksHeld++; break;
-    case 'polož_značku':  world.cells[k.row][k.col].marker=true; break;
-    case 'zdvihni_značku':
+    case 'poloz_znacku':  world.cells[k.row][k.col].marker=true; break;
+    case 'zdvihni_znacku':
       if(!world.cells[k.row][k.col].marker) throw new Error('Žiadna značka na zdvihnutie!');
       world.cells[k.row][k.col].marker=false; break;
   }
@@ -780,14 +780,14 @@ const EXAMPLES = {
 # Karel štartuje vľavo dole, smeruje na SEVER.
 # ==========================================
 
-# Presun na začiatok ďalšieho stĺpca
+# Presun na zaciatok ďalšieho stĺpca
 # (z vrcholu r0 späť na spodok r9, potom vpravo)
-príkaz ďalší
-  začiatok
+prikaz dalsi
+  zaciatok
     vpravo
     vpravo
-    opakuj 9 krát
-      začiatok
+    opakuj 9 krat
+      zaciatok
         krok
       koniec
     vlavo
@@ -796,26 +796,26 @@ príkaz ďalší
   koniec
 
 # Plný stĺpec: tehly na r8 až r1 (8 tehál)
-príkaz plný_stĺpec
-  začiatok
-    opakuj 8 krát
-      začiatok
+prikaz plny_stlpec
+  zaciatok
+    opakuj 8 krat
+      zaciatok
         krok
-        polož
+        poloz
       koniec
     krok
   koniec
 
 # ── A – ľavá strana (stĺpec 0) ──
 # Tehly: r8–r2 (7 tehál, nechávame r0,r1,r9 prázdne)
-opakuj 7 krát
-  začiatok
+opakuj 7 krat
+  zaciatok
     krok
-    polož
+    poloz
   koniec
 krok
 krok
-ďalší
+dalsi
 
 # ── A – pravá strana (stĺpec 1) ──
 # Tehly: r4 (crossbar), r1 (vrchol)
@@ -823,53 +823,53 @@ krok
 krok
 krok
 krok
-krok polož
+krok poloz
 krok
 krok
-krok polož
+krok poloz
 krok
-ďalší
+dalsi
 
 # ── H – ľavá strana (stĺpec 2) ──
 # Tehly: r8–r1 (plný stĺpec)
-plný_stĺpec
-ďalší
+plny_stlpec
+dalsi
 
 # ── H – pravá strana (stĺpec 3) ──
 # Tehly: r8 (spodok), r4 (crossbar), r1 (vrch)
-krok polož
+krok poloz
 krok
 krok
 krok
-krok polož
+krok poloz
 krok
 krok
-krok polož
+krok poloz
 krok
-ďalší
+dalsi
 
 # ── O – ľavá strana (stĺpec 4) ──
 # Tehly: r8–r1 (plný stĺpec)
-plný_stĺpec
-ďalší
+plny_stlpec
+dalsi
 
 # ── O – pravá strana (stĺpec 5) ──
 # Tehly: r8 a r1 → uzavreté O
-krok polož
+krok poloz
 krok
 krok
 krok
 krok
 krok
 krok
-krok polož
+krok poloz
 krok
-ďalší
+dalsi
 
 # ── J – ľavá strana (stĺpec 6) ──
 # Tehly: r8, r7 (zahnutie J)
-krok polož
-krok polož
+krok poloz
+krok poloz
 krok
 krok
 krok
@@ -877,39 +877,39 @@ krok
 krok
 krok
 krok
-ďalší
+dalsi
 
 # ── J – pravá strana (stĺpec 7) ──
 # Tehly: r7–r1 (zvislica J, hák je vľavo)
 krok
-opakuj 7 krát
-  začiatok
+opakuj 7 krat
+  zaciatok
     krok
-    polož
+    poloz
   koniec
 krok
-ďalší
+dalsi
 
 # ── ! (stĺpec 8) ──
 # Tehly: r1–r4 (čiarka), r6 (bodka)
 krok
 krok
-krok polož
+krok poloz
 krok
-krok polož
-krok polož
-krok polož
-krok polož
+krok poloz
+krok poloz
+krok poloz
+krok poloz
 krok
 `,
   square: `# Karel chodí v kruhu a zanecháva stopu
 # (4 strany, 4 kroky každá)
 
-opakuj 4 krát
-  začiatok
-    opakuj 4 krát
-      začiatok
-        polož_značku
+opakuj 4 krat
+  zaciatok
+    opakuj 4 krat
+      zaciatok
+        poloz_znacku
         krok
       koniec
     vpravo
@@ -918,10 +918,10 @@ opakuj 4 krát
   collect: `# Postav tehly ručne do sveta (klikni na bunky).
 # Potom spusti program – Karel ich pozbiera!
 
-kým nie_je_stena rob
-  začiatok
+kym nie_je_stena rob
+  zaciatok
     ak je_tehla tak
-      začiatok
+      zaciatok
         zdvihni
       koniec
     krok
@@ -930,49 +930,49 @@ kým nie_je_stena rob
   stairs: `# Karel stavia schodisko smerom hore.
 # Každý schod = 1 tehla vyššie.
 
-príkaz schod
-  začiatok
-    polož
+prikaz schod
+  zaciatok
+    poloz
     vpravo
     krok
     vlavo
     krok
   koniec
 
-opakuj 6 krát
-  začiatok
+opakuj 6 krat
+  zaciatok
     schod
   koniec
 `,
   zigzag: `# Karel ide cik-cak (had) cez svet.
 
-príkaz rad_dopredu
-  začiatok
-    opakuj 8 krát
-      začiatok
-        polož_značku
+prikaz rad_dopredu
+  zaciatok
+    opakuj 8 krat
+      zaciatok
+        poloz_znacku
         krok
       koniec
   koniec
 
-príkaz posun
-  začiatok
+prikaz posun
+  zaciatok
     vpravo
     krok
     vpravo
   koniec
 
-príkaz rad_dozadu
-  začiatok
-    opakuj 8 krát
-      začiatok
-        polož_značku
+prikaz rad_dozadu
+  zaciatok
+    opakuj 8 krat
+      zaciatok
+        poloz_znacku
         krok
       koniec
   koniec
 
-príkaz posun2
-  začiatok
+prikaz posun2
+  zaciatok
     vlavo
     krok
     vlavo
@@ -985,101 +985,35 @@ posun2
 rad_dopredu
 `,
   custom: `# Vlastné príkazy – zjednodušujú dlhé programy.
-# Príkaz 'otočka' sa otočí o 180°.
+# Príkaz 'otocka' sa otočí o 180°.
 
-príkaz otočka
-  začiatok
+prikaz otocka
+  zaciatok
     vpravo
     vpravo
   koniec
 
-príkaz schod
-  začiatok
-    polož
+prikaz schod
+  zaciatok
+    poloz
     krok
     vlavo
     krok
     vlavo
-    otočka
+    otocka
   koniec
 
-opakuj 4 krát
-  začiatok
+opakuj 4 krat
+  zaciatok
     schod
-  koniec
-`,
-  maze: `# Bludisko :-)
-# Karel sa snaží nájsť cestu k značke (★).
-# Algoritmus: ak stena → otoč sa, inak krok.
-
-kým nie_je_značka rob
-  začiatok
-    ak je_stena tak
-    začiatok
-      vpravo
-    koniec
-    ak je_stena tak
-    začiatok
-      vlavo
-      vlavo
-    koniec
-    ak nie_je_stena tak
-    začiatok
-      krok
-    koniec
   koniec
 `,
 };
 
-// ─────────────────────────────────────────────
-// MAZE SETUP
-// ─────────────────────────────────────────────
-function setupMaze() {
-  initWorld = mkWorld();
-  initWorld.karel = {row:9, col:0, dir:0}; // štart: vľavo dole, smer SEVER
-  initWorld.cells[9][9].marker = true;     // cieľ: vpravo dole
-
-  // === STENY KORIDORU (tvoria cestu) ===
-  // Pravá stena ľavého koridoru (col 0)
-  for(let r=1;r<=9;r++) initWorld.vWalls.add(`${r},0`);
-  // Dolná stena horného koridoru (row 0)
-  for(let c=0;c<=8;c++) initWorld.hWalls.add(`0,${c}`);
-  // Ľavá stena pravého koridoru (col 9)
-  for(let r=1;r<=9;r++) initWorld.vWalls.add(`${r},8`);
-
-  // === VNÚTORNÉ STENY (dekoratívny labyrint) ===
-  // Plné vertikálne priečky
-  for(let r=1;r<=9;r++) initWorld.vWalls.add(`${r},2`);
-  for(let r=1;r<=9;r++) initWorld.vWalls.add(`${r},4`);
-  for(let r=1;r<=9;r++) initWorld.vWalls.add(`${r},6`);
-  // Čiastočné vertikálne priečky
-  for(let r=1;r<=5;r++) initWorld.vWalls.add(`${r},1`);
-  for(let r=5;r<=9;r++) initWorld.vWalls.add(`${r},3`);
-  for(let r=1;r<=4;r++) initWorld.vWalls.add(`${r},5`);
-  for(let r=6;r<=9;r++) initWorld.vWalls.add(`${r},5`);
-  for(let r=2;r<=8;r++) initWorld.vWalls.add(`${r},7`);
-  // Horizontálne priečky
-  for(let c=1;c<=1;c++) initWorld.hWalls.add(`3,${c}`);
-  for(let c=3;c<=4;c++) initWorld.hWalls.add(`5,${c}`);
-  for(let c=5;c<=6;c++) initWorld.hWalls.add(`3,${c}`);
-  for(let c=7;c<=7;c++) initWorld.hWalls.add(`5,${c}`);
-  for(let c=1;c<=2;c++) initWorld.hWalls.add(`7,${c}`);
-  for(let c=3;c<=4;c++) initWorld.hWalls.add(`8,${c}`);
-  for(let c=5;c<=6;c++) initWorld.hWalls.add(`7,${c}`);
-  for(let c=7;c<=7;c++) initWorld.hWalls.add(`2,${c}`);
-
-  world = cloneWorld(initWorld);
-}
-
 document.getElementById('examples').addEventListener('change',e=>{
   const key=e.target.value;
-  if(!key||!EXAMPLES[key]) return;
-  editorEl.value=EXAMPLES[key];
-  if(key==='maze'){
-    setupMaze();
-    drawWorld();
-    setStatus('Karel hľadá cestu k ★ ...  Stlač ▶ alebo ⏭ krok');
-  } else {
+  if(key&&EXAMPLES[key]){
+    editorEl.value=EXAMPLES[key];
     doReset();
   }
 });
