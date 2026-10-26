@@ -777,15 +777,29 @@ document.querySelectorAll('.ref-item[data-ins]').forEach(item=>{
 // ─────────────────────────────────────────────
 const EXAMPLES = {
   hello: `# ==========================================
-# Karel kreslí slovo  A H O J !
-# na mriežke 10×10 pomocou tehál.
-# Každé písmeno zaberá 2 stĺpce (! = 1).
-# Karel štartuje vľavo dole, smeruje na SEVER.
+# Karel kreslí slovo AHOJ na dva riadky:
+#     A H
+#     O J
+# Každé písmeno je 4×4 tehly.
+# Karel štartuje vľavo dole, smeruje na SEVER
+# a maľuje po riadkoch zdola nahor.
 # ==========================================
 
-# Presun na zaciatok ďalšieho stĺpca
-# (z vrcholu r0 späť na spodok r9, potom vpravo)
-prikaz dalsi
+# Polož tehlu a posuň sa o krok vpravo
+prikaz tehla
+  zaciatok
+    poloz
+    krok
+  koniec
+
+# Prázdne políčko – len krok vpravo
+prikaz medzera
+  zaciatok
+    krok
+  koniec
+
+# Vráť sa na začiatok riadku a choď o riadok vyššie
+prikaz dalsi_riadok
   zaciatok
     vpravo
     vpravo
@@ -793,117 +807,38 @@ prikaz dalsi
       zaciatok
         krok
       koniec
-    vlavo
+    vpravo
     krok
-    vlavo
+    vpravo
   koniec
 
-# Plný stĺpec: tehly na r8 až r1 (8 tehál)
-prikaz plny_stlpec
-  zaciatok
-    opakuj 8 krat
-      zaciatok
-        krok
-        poloz
-      koniec
-    krok
-  koniec
+# Najprv o riadok hore (spodný riadok mriežky ostane prázdny)
+krok
+vpravo
 
-# ── A – ľavá strana (stĺpec 0) ──
-# Tehly: r8–r2 (7 tehál, nechávame r0,r1,r9 prázdne)
-opakuj 7 krat
-  zaciatok
-    krok
-    poloz
-  koniec
-krok
-krok
-dalsi
+# ── O J (spodné písmená, od spodku nahor) ──
+medzera tehla tehla medzera   medzera   medzera tehla tehla medzera
+dalsi_riadok
+tehla medzera medzera tehla   medzera   tehla medzera tehla medzera
+dalsi_riadok
+tehla medzera medzera tehla   medzera   medzera medzera tehla medzera
+dalsi_riadok
+medzera tehla tehla medzera   medzera   tehla tehla tehla tehla
+dalsi_riadok
 
-# ── A – pravá strana (stĺpec 1) ──
-# Tehly: r4 (crossbar), r1 (vrchol)
+# ── prázdny riadok medzi písmenami ──
+vlavo
 krok
-krok
-krok
-krok
-krok poloz
-krok
-krok
-krok poloz
-krok
-dalsi
+vpravo
 
-# ── H – ľavá strana (stĺpec 2) ──
-# Tehly: r8–r1 (plný stĺpec)
-plny_stlpec
-dalsi
-
-# ── H – pravá strana (stĺpec 3) ──
-# Tehly: r8 (spodok), r4 (crossbar), r1 (vrch)
-krok poloz
-krok
-krok
-krok
-krok poloz
-krok
-krok
-krok poloz
-krok
-dalsi
-
-# ── O – ľavá strana (stĺpec 4) ──
-# Tehly: r8–r1 (plný stĺpec)
-plny_stlpec
-dalsi
-
-# ── O – pravá strana (stĺpec 5) ──
-# Tehly: r8 a r1 → uzavreté O
-krok poloz
-krok
-krok
-krok
-krok
-krok
-krok
-krok poloz
-krok
-dalsi
-
-# ── J – ľavá strana (stĺpec 6) ──
-# Tehly: r8, r7 (zahnutie J)
-krok poloz
-krok poloz
-krok
-krok
-krok
-krok
-krok
-krok
-krok
-dalsi
-
-# ── J – pravá strana (stĺpec 7) ──
-# Tehly: r7–r1 (zvislica J, hák je vľavo)
-krok
-opakuj 7 krat
-  zaciatok
-    krok
-    poloz
-  koniec
-krok
-dalsi
-
-# ── ! (stĺpec 8) ──
-# Tehly: r1–r4 (čiarka), r6 (bodka)
-krok
-krok
-krok poloz
-krok
-krok poloz
-krok poloz
-krok poloz
-krok poloz
-krok
+# ── A H (horné písmená, od spodku nahor) ──
+tehla medzera medzera tehla   medzera   tehla medzera medzera tehla
+dalsi_riadok
+tehla tehla tehla tehla   medzera   tehla medzera medzera tehla
+dalsi_riadok
+tehla medzera medzera tehla   medzera   tehla tehla tehla tehla
+dalsi_riadok
+medzera tehla tehla medzera   medzera   tehla medzera medzera tehla
 `,
   square: `# Karel chodí v kruhu a zanecháva stopu
 # (4 strany, 4 kroky každá)
